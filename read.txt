@@ -1,0 +1,71 @@
+1. Prepare Your GitHub Repository:
+Add gunicorn to requirements.txt:
+
+ini
+Copy
+Edit
+gunicorn==20.1.0
+Ensure all dependencies are listed in requirements.txt: Example:
+
+ini
+Copy
+Edit
+Flask==3.1.0
+gunicorn==20.1.0
+pandas==2.2.3
+Check Flask entry point:
+Ensure your app instance is defined as app in main.py (or your entry file):
+
+python
+Copy
+Edit
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return 'Hello, World!'
+
+if __name__ == '__main__':
+    app.run(debug=True)
+2. Set Up GitHub for Deployment:
+Push your app to GitHub:
+bash
+Copy
+Edit
+git init
+git add .
+git commit -m "Initial commit"
+git remote add origin https://github.com/yourusername/your-repo-name.git
+git push -u origin main
+3. Deploy the Flask App on Render:
+Log in to Render with GitHub and authorize access.
+
+Create a New Web Service:
+
+Click New > Web Service.
+Choose your GitHub repository.
+Fill in the deployment details:
+
+Name: Choose a name (e.g., music_recommendation).
+Branch: Select main.
+Region: Choose a region (e.g., Oregon).
+Set Build and Start Commands:
+
+Build Command: pip install -r requirements.txt
+Start Command: gunicorn main:app (replace main with your file name if needed).
+Add Environment Variables (if needed).
+
+Select Instance Type: Choose Free for testing or select a paid option for production.
+
+Click on "Create Web Service" to deploy.
+
+4. Monitor the Deployment:
+Render will install dependencies and start your app. Monitor the process in the Logs section.
+
+5. Troubleshoot Common Errors:
+Gunicorn Not Found: Ensure gunicorn is in requirements.txt.
+Dependency Issues: Ensure all dependencies are listed by running pip freeze > requirements.txt.
+App Not Starting: Double-check the Flask app entry point (e.g., main:app).
+6. Access Your App:
+After deployment, Render will provide a URL for your live app.
